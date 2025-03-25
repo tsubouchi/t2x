@@ -16,6 +16,15 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  productionBrowserSourceMaps: true,
+  webpack: (config, { dev, isServer }) => {
+    if (!dev && !isServer) {
+      Object.assign(config, {
+        devtool: 'source-map',
+      })
+    }
+    return config
+  },
   experimental: {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,

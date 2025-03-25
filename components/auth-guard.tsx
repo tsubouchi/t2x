@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/auth-context'
 import { useRouter, usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-const PUBLIC_PATHS = ['/login', '/login/']
+const PUBLIC_PATHS = ['/login']
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth()
@@ -24,7 +24,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
         } else if (user && isPublicPath) {
           router.push('/')
         }
-      }, 100) // 短い遅延を追加して、ちらつきを防ぐ
+      }, 100)
     }
 
     return () => {
@@ -34,10 +34,10 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
 
   if (!isInitialized || loading) {
     return (
-      <div className="min-h-screen bg-zinc-950 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="text-2xl font-bold text-white">t2x</div>
-          <div className="text-white text-lg">Loading...</div>
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-center">
+          <h1 className="text-2xl font-bold mb-2">t2x</h1>
+          <p>Loading...</p>
         </div>
       </div>
     )
@@ -45,10 +45,10 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
 
   if (!user && !isPublicPath) {
     return (
-      <div className="min-h-screen bg-zinc-950 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="text-2xl font-bold text-white">t2x</div>
-          <div className="text-white text-lg">Redirecting to login...</div>
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-center">
+          <h1 className="text-2xl font-bold mb-2">t2x</h1>
+          <p>Redirecting to login...</p>
         </div>
       </div>
     )
@@ -56,10 +56,10 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
 
   if (user && isPublicPath) {
     return (
-      <div className="min-h-screen bg-zinc-950 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="text-2xl font-bold text-white">t2x</div>
-          <div className="text-white text-lg">Redirecting to home...</div>
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-center">
+          <h1 className="text-2xl font-bold mb-2">t2x</h1>
+          <p>Redirecting to home...</p>
         </div>
       </div>
     )

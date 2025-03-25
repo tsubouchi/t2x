@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
-import { validServices, ServiceType, serviceNames } from './types'
-import ServiceClient from './page-client'
+import { validServices, serviceNames } from './types'
 
 export async function generateMetadata({ params }: { params: { service: string } }): Promise<Metadata> {
   const service = params.service.toLowerCase()
@@ -18,14 +17,4 @@ export async function generateStaticParams() {
 }
 
 export const dynamic = 'error'
-export const dynamicParams = false
-
-export default function ServicePage({ params }: { params: { service: string } }) {
-  const service = params.service.toLowerCase()
-  if (!validServices.includes(service as ServiceType)) {
-    return null
-  }
-
-  return <ServiceClient service={service as ServiceType} />
-}
-
+export const dynamicParams = false 

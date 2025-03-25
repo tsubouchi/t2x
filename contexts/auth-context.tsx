@@ -2,14 +2,13 @@
 
 import { createContext, useContext, useEffect, useState } from 'react'
 import { 
-  getAuth, 
   onAuthStateChanged,
   signOut as firebaseSignOut,
   GoogleAuthProvider,
   signInWithPopup,
   User
 } from 'firebase/auth'
-import { app } from '@/lib/firebase'
+import { auth } from '@/lib/firebase'
 
 interface AuthContextType {
   user: User | null
@@ -28,15 +27,9 @@ const AuthContext = createContext<AuthContextType>({
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
-  const auth = getAuth(app)
 
   useEffect(() => {
     let mounted = true
-    const timeoutId = setTimeout(() => {
-      if (mounted && loading) {
-        setLoading(false)
-      }
-    }, 5000)
 
     const unsubscribe = onAuthStateChanged(auth, 
       (user) => {
@@ -53,6 +46,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     )
 
+    // 500ms後にローディング状態を解除（認証状態の初期化に失敗した場合のフォールバック）
+    const timeoutId = setTimeout(() => {
+      if (mounted) {
+        setLoading(false)
+      }
+    }, 500)
+
     return () => {
       mounted = false
       clearTimeout(timeoutId)
@@ -62,23 +62,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signInWithGoogle = async () => {
     try {
-      setLoading(true)
       const provider = new GoogleAuthProvider()
       await signInWithPopup(auth, provider)
     } catch (error) {
       console.error('Sign in with Google error:', error)
-      setLoading(false)
       throw error
     }
   }
 
   const signOut = async () => {
     try {
-      setLoading(true)
       await firebaseSignOut(auth)
     } catch (error) {
       console.error('Sign out error:', error)
-      setLoading(false)
       throw error
     }
   }

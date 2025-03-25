@@ -1,36 +1,30 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
-import { AuthProvider } from "@/contexts/auth-context"
-import { AuthGuard } from "@/components/auth-guard"
+import './globals.css'
+import { Inter } from 'next/font/google'
+import { AuthWrapper } from '@/components/auth-wrapper'
+import { Header } from '@/components/header'
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: "T2X Platform",
-  description: "Text to Everything Platform",
-  icons: {
-    icon: '/favicon.svg',
-  },
+export const metadata = {
+  title: 't2x',
+  description: 'Slides sharing platform',
 }
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="bg-black">
       <body className={inter.className}>
-        <AuthProvider>
-          <AuthGuard>
+        <AuthWrapper>
+          <div className="min-h-screen flex flex-col bg-black text-white">
+            <Header />
             {children}
-          </AuthGuard>
-        </AuthProvider>
+          </div>
+        </AuthWrapper>
       </body>
     </html>
   )
 }
-
-import './globals.css'

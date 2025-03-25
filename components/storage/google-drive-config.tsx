@@ -73,7 +73,7 @@ export function GoogleDriveConfig() {
                 <SelectTrigger id="folder-structure" className="bg-black border-white/20">
                   <SelectValue placeholder="Select folder structure" />
                 </SelectTrigger>
-                <SelectContent className="bg-black border-white/20">
+                <SelectContent position="popper" className="bg-black border-white/20">
                   <SelectItem value="service-date">By Service, then Date</SelectItem>
                   <SelectItem value="date-service">By Date, then Service</SelectItem>
                   <SelectItem value="flat">Flat Structure</SelectItem>
