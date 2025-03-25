@@ -27,15 +27,22 @@ export default function HomePage() {
   const { user, loading } = useAuth()
 
   useEffect(() => {
-    if (!loading && !user) {
-      router.push('/login')
-    }
+    const timeoutId = setTimeout(() => {
+      if (!loading && !user) {
+        router.push('/login')
+      }
+    }, 1000)
+
+    return () => clearTimeout(timeoutId)
   }, [user, loading, router])
 
   if (loading) {
     return (
       <div className="min-h-screen bg-zinc-950 flex items-center justify-center">
-        <div className="text-white">Loading...</div>
+        <div className="text-white text-center">
+          <h1 className="text-2xl font-bold mb-2">t2x</h1>
+          <p>Loading...</p>
+        </div>
       </div>
     )
   }

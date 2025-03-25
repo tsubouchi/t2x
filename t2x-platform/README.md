@@ -176,4 +176,59 @@ npm run dev
 
 ## ライセンス
 
-このプロジェクトはプライベートです。 
+このプロジェクトはプライベートです。
+
+## Screenshot
+
+![Main Screen](main.png)
+
+## Features
+
+- **TTSLIDES**: Convert text into beautiful presentation slides
+- **TTDOCS**: Transform text into formatted documents
+- **TTSHEETS**: Generate spreadsheets from text
+- **TTSQL**: Convert natural language to SQL queries
+- **TTCODES**: Transform text into code
+- **TTIMAGES**: Generate images from text descriptions
+- **TTVIDEOS**: Create videos from text scripts
+- **TTRESEARCH**: Research assistant
+
+## Tech Stack
+
+- Next.js 15.1.0
+- React
+- TypeScript
+- Tailwind CSS
+- Firebase Authentication
+- Firebase Realtime Database
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+```
+
+## Environment Variables
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_DATABASE_URL=your_database_url
+```
+
+## License
+
+MIT 

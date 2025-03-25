@@ -31,28 +31,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const auth = getAuth(app)
 
   useEffect(() => {
+    let mounted = true
     const timeoutId = setTimeout(() => {
-      if (loading) {
+      if (mounted && loading) {
         setLoading(false)
       }
     }, 5000)
 
     const unsubscribe = onAuthStateChanged(auth, 
       (user) => {
-        setUser(user)
-        setLoading(false)
+        if (mounted) {
+          setUser(user)
+          setLoading(false)
+        }
       },
       (error) => {
         console.error('Auth state error:', error)
-        setLoading(false)
+        if (mounted) {
+          setLoading(false)
+        }
       }
     )
 
     return () => {
+      mounted = false
       clearTimeout(timeoutId)
       unsubscribe()
     }
-  }, [auth, loading])
+  }, [])
 
   const signInWithGoogle = async () => {
     try {
